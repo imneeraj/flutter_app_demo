@@ -1,6 +1,6 @@
 # flutter_app_demo
 
-A new Flutter application.
+A Flutter application.
 
 This is just a demo app, as i'm new to flutter and learning it.
 

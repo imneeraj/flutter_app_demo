@@ -13,3 +13,4 @@ What does the demo contains for now.
 
 - PageView (View pager)
 - Bottom Navigation bar
+- Drawer

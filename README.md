@@ -14,3 +14,5 @@ What does the demo contains for now.
 - PageView (View pager)
 - Bottom Navigation bar
 - Drawer
+- Bottom app bar with FAB in middle.
+-  bottom app bar -> Google task app style

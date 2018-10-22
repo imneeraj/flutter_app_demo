@@ -14,6 +14,7 @@ class BottomTaskBar extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         elevation: 4.0,
+        backgroundColor: Colors.teal,
         icon: const Icon(Icons.add),
         label: const Text('Add a task'),
         onPressed: () {},

@@ -3,8 +3,13 @@ import 'home_page.dart';
 import 'more.dart';
 import 'network_requests.dart';
 import 'list_page.dart';
+import 'bottom_app_bar.dart';
+import 'bottom_task_bar.dart';
 
-void main() => runApp(new MyApp());
+void main()
+{
+  runApp(new MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -20,58 +25,60 @@ class _MyAppState extends State<MyApp>
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: "Flutter Demo",
-      theme: new ThemeData(
-        primaryColor: Colors.deepPurple),
+        title: "Flutter Demo",
+        theme: new ThemeData(
+            primaryColor: Colors.teal),
+        home: new Scaffold(
+          body: new PageView(
+            controller: pageController,
+            onPageChanged: (int index)
+            {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            children: <Widget>[
+              new HomePage(),
+              new ListPage(),
+              new NetworkRequest(),
+              new More(),
+            ],
+          ),
+          bottomNavigationBar: new BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: (int index)
+            {
+              setState(() {
+                _selectedIndex = index;
+                pageController.animateToPage(
+                  _selectedIndex,
+                  duration: kTabScrollDuration,
+                  curve: scrollCurve,
+                );
+              });
+            },
 
-      home: new Scaffold(
-        body: new PageView(
-          controller: pageController,
-          onPageChanged: (int index)
-          {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          children: <Widget>[
-            new HomePage(),
-            new ListPage(),
-            new NetworkRequest(),
-            new More(),
-          ],
+            items: <BottomNavigationBarItem>[
+              new BottomNavigationBarItem(
+                  icon: new Icon(Icons.home),
+                  title: new Text("Home")),
+              new BottomNavigationBarItem(
+                  icon: new Icon(Icons.format_list_numbered),
+                  title: new Text("List")),
+              new BottomNavigationBarItem(
+                  icon: new Icon(Icons.network_wifi),
+                  title: new Text("Network")),
+              new BottomNavigationBarItem(
+                  icon: new Icon(Icons.more_vert),
+                  title: new Text("More")),
+            ],
+          ),
         ),
-        bottomNavigationBar: new BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _selectedIndex,
-          onTap: (int index)
-          {
-            setState(() {
-              _selectedIndex = index;
-              pageController.animateToPage(
-                _selectedIndex,
-                duration: kTabScrollDuration,
-                curve: scrollCurve,
-              );
-            });
-          },
-
-          items: <BottomNavigationBarItem>[
-            new BottomNavigationBarItem(
-                icon: new Icon(Icons.home),
-                title: new Text("Home")),
-            new BottomNavigationBarItem(
-                icon: new Icon(Icons.format_list_numbered),
-                title: new Text("List")),
-            new BottomNavigationBarItem(
-                icon: new Icon(Icons.network_wifi),
-                title: new Text("Network")),
-            new BottomNavigationBarItem(
-                icon: new Icon(Icons.more_vert),
-                title: new Text("More")),
-          ],
-        ),
-      ),
-    );
+        routes: <String, WidgetBuilder>{
+          "/a" :(BuildContext context) => new BottomAppBarEx("Bottom App Bar"),
+          "/b" :(BuildContext context) => new BottomTaskBar("Google Bottom Task Bar"),
+        });
   }
 }
 
